@@ -1,0 +1,161 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+  height: 100vh;
+}
+.shop-wrapper {
+  position: relative;
+  width: 300px;
+  height: 600px;
+  overflow: hidden;
+}
+
+.container {
+  position: relative;
+  &.product-list {
+    list-style: none;
+  }
+}
+.product {
+  position: absolute;
+  user-select: none;
+}
+#shelves {
+  width: 300px;
+  height: 600px;
+  background-image: url('./img/showcase.svg');
+  background-repeat: no-repeat;
+  background-position: center 28px;
+  border: 1px solid #000;
+  border-radius: 15px;
+  overflow: hidden;
+
+  & .product#wine {
+    bottom: 74.5%;
+    left: 20%;
+  }
+  & .product#milk {
+    bottom: 74.5%;
+    left: 35%;
+  }
+  & .product#jam {
+    bottom: 74.5%;
+    left: 50%;
+  }
+  & .product#chees {
+    bottom: 74.5%;
+    left: 68%;
+  }
+  & .product#meet {
+    bottom: 58.5%;
+    left: 19%;
+  }
+  & .product#chicken {
+    bottom: 57%;
+    left: 37%;
+  }
+  & .product#chips {
+    bottom: 58%;
+    left: 59%;
+  }
+  & .product#pineapple {
+    bottom: 43%;
+    left: 20%;
+  }
+  & .product#banana {
+    bottom: 43%;
+    left: 35%;
+  }
+  & .product#apple {
+    bottom: 43%;
+    left: 53%;
+  }
+  & .product#vegetable {
+    bottom: 43%;
+    left: 67%;
+  }
+}
+.basket-wrapper {
+  user-select: none;
+  width: 276px;
+  height: 325px;
+  position: absolute;
+  bottom: -98px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.basket-image {
+  pointer-events: none;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  z-index: 3;
+}
+#basket {
+  width: 100%;
+  height: 100%;
+
+  & .product {
+    position: absolute;
+    transform: scale(1.3);
+  }
+  & .product#wine {
+    bottom: 50%;
+    left: 76%;
+  }
+  & .product#milk {
+    bottom: 50%;
+    left: 26%;
+  }
+  & .product#jam {
+    bottom: 50%;
+    left: 40%;
+  }
+  & .product#chees {
+    bottom: 70%;
+    left: 45%;
+  }
+  & .product#meet {
+    bottom: 60%;
+    left: 57%;
+  }
+  & .product#chicken {
+    bottom: 45%;
+    left: 51%;
+  }
+  & .product#chips {
+    bottom: 60%;
+    left: 37%;
+  }
+  & .product#pineapple {
+    bottom: 50%;
+    left: 51%;
+  }
+  & .product#banana {
+    bottom: 50%;
+    left: 31%;
+  }
+  & .product#apple {
+    bottom: 68%;
+    left: 34%;
+  }
+  & .product#vegetable {
+    bottom: 72%;
+    left: 53%;
+  }
+}
+
+.product {
+  cursor: grab;
+}
+
+.product.dragging {
+  z-index: 3;
+}
