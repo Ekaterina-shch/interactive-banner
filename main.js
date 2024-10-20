@@ -1,34 +1,47 @@
 const products = document.querySelectorAll('.product');
-const containers = document.querySelectorAll('.container');
 const basket = document.getElementById('basket');
 const wrapper = document.querySelector('.shop-wrapper');
+const btnPay = document.querySelector('.btn-pay');
 
+let offsetX, offsetY;
 let isInBasket = false;
+let countPrdoctInBasket = 0;
+
+const isTouchDevice = () => {
+  return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+};
 
 products.forEach(dragAndDrop);
 
-containers.forEach((container) => {
-  container.addEventListener('dragover', (e) => {
-    e.preventDefault();
-    const draggable = document.querySelector('.dragging');
-    container.appendChild(draggable);
-  });
-});
-
 function dragAndDrop(product) {
+  if (isTouchDevice()) {
+    mobileMove(product);
+  } else {
+    desktopMove(product);
+  }
+}
+
+function desktopMove(product) {
   product.addEventListener('dragstart', () =>
     product.classList.add('dragging')
   );
-  product.addEventListener('dragend', () =>
-    product.classList.remove('dragging')
-  );
+  product.addEventListener('dragend', () => {
+    product.classList.remove('dragging');
+    if (isInBasket) {
+      addToBasket(product);
+      onProductAdd();
+      isInBasket = false;
+    }
+  });
+}
 
+function mobileMove(product) {
   let isDragging = false;
 
   product.addEventListener('touchstart', (e) => {
     e.preventDefault();
     isDragging = true;
-    moveAt(e.touches[0]);
+    setPosition(e.touches[0], product);
   });
 
   product.addEventListener('touchmove', (e) => {
@@ -45,6 +58,7 @@ function dragAndDrop(product) {
       product.classList.remove('dragging');
       if (isInBasket) {
         addToBasket(product);
+        onProductAdd();
         product.style.top = '';
         product.style.left = '';
         isInBasket = false;
@@ -53,13 +67,30 @@ function dragAndDrop(product) {
   });
 }
 
+basket.addEventListener('dragover', (e) => {
+  e.preventDefault();
+  isInBasket = true;
+});
+
+function addToBasket(product) {
+  basket.appendChild(product);
+}
+
+function onProductAdd() {
+  countPrdoctInBasket += 1;
+  console.log(countPrdoctInBasket);
+  if (countPrdoctInBasket >= 3) {
+    btnPay.classList.add('active');
+  }
+}
+
+function setPosition(touch, product) {
+  offsetX = touch.clientX - product.offsetLeft;
+  offsetY = touch.clientY - product.offsetTop;
+}
 function moveAt(touch, product) {
-  product.style.top = `${
-    touch.clientY - wrapper.offsetTop - product.offsetHeight / 2
-  }px`;
-  product.style.left = `${
-    touch.clientX - wrapper.offsetLeft - product.offsetWidth / 2
-  }px`;
+  product.style.left = touch.clientX - offsetX + 'px';
+  product.style.top = touch.clientY - offsetY + 'px';
 }
 
 function checkDropZone(touch) {
@@ -71,12 +102,5 @@ function checkDropZone(touch) {
     touch.clientY <= rect.bottom
   ) {
     isInBasket = true;
-    console.log('мы над корзиной');
   }
-}
-
-function addToBasket(product) {
-  containers.forEach((container) => {
-    container.appendChild(product);
-  });
 }
