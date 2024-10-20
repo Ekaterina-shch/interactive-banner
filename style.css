@@ -9,11 +9,12 @@ body {
   align-items: center;
   gap: 3rem;
   height: 100vh;
+  font-family: sans-serif;
 }
 .shop-wrapper {
   position: relative;
-  width: 300px;
-  height: 600px;
+  width: 18.75rem;
+  height: 37.5rem;
   overflow: hidden;
 }
 
@@ -26,16 +27,22 @@ body {
 .product {
   position: absolute;
   user-select: none;
+  cursor: grab;
+}
+
+.product.dragging {
+  z-index: 3;
 }
 #shelves {
-  width: 300px;
-  height: 600px;
+  width: 18.75rem;
+  height: 37.5rem;
   background-image: url('./img/showcase.svg');
+  background-size: 13.1875rem 26.9375rem;
   background-repeat: no-repeat;
   background-position: center 28px;
-  border: 1px solid #000;
+  border: 0.0625rem solid #000;
   border-radius: 15px;
-  overflow: hidden;
+  /* overflow: hidden; */
 
   & .product#wine {
     bottom: 74.5%;
@@ -84,18 +91,19 @@ body {
 }
 .basket-wrapper {
   user-select: none;
-  width: 276px;
-  height: 325px;
+  width: 17.25rem;
+  height: 20.3125rem;
   position: absolute;
-  bottom: -98px;
+  bottom: -6.125rem;
   left: 50%;
   transform: translateX(-50%);
 }
 .basket-image {
   pointer-events: none;
   position: absolute;
-  bottom: 0;
   width: 100%;
+  width: 17.25rem;
+  height: 20.3125rem;
   z-index: 3;
 }
 #basket {
@@ -152,10 +160,28 @@ body {
   }
 }
 
-.product {
-  cursor: grab;
+.btn-pay {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  width: 174px;
+  height: 56px;
+  font-size: 1rem;
+  line-height: 17px;
+  font-weight: bold;
+  color: #21201f;
+  text-decoration: none;
+  background-color: #fce000;
+  border-radius: 16px;
 }
 
-.product.dragging {
-  z-index: 3;
+.btn-pay.active {
+  bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
