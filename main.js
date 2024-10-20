@@ -78,7 +78,6 @@ function addToBasket(product) {
 
 function onProductAdd() {
   countPrdoctInBasket += 1;
-  console.log(countPrdoctInBasket);
   if (countPrdoctInBasket >= 3) {
     btnPay.classList.add('active');
   }
